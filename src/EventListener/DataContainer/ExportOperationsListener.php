@@ -41,7 +41,7 @@ class ExportOperationsListener
 
         foreach ($exports as $config) {
             $operations['export_'.$config['id']] = [
-                'attributes' => (new HtmlAttributes())->set('data-turbo-prefetch', 'false'),
+                'attributes' => (new HtmlAttributes())->set('data-turbo', 'false'),
                 'label' => [$config['name']],
                 'button_callback' => function (DataContainerOperation $operation) use ($config): void {
                     $operation->setUrl($this->urlGenerator->generate('terminal42_leads_export', ['id' => $config['id']]));
