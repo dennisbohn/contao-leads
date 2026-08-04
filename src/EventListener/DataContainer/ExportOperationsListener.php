@@ -7,6 +7,7 @@ namespace Terminal42\LeadsBundle\EventListener\DataContainer;
 use Contao\CoreBundle\DataContainer\DataContainerOperation;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\CoreBundle\Security\ContaoCorePermissions;
+use Contao\CoreBundle\String\HtmlAttributes;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -40,6 +41,7 @@ class ExportOperationsListener
 
         foreach ($exports as $config) {
             $operations['export_'.$config['id']] = [
+                'attributes' => (new HtmlAttributes())->set('data-turbo-prefetch', 'false'),
                 'label' => [$config['name']],
                 'button_callback' => function (DataContainerOperation $operation) use ($config): void {
                     $operation->setUrl($this->urlGenerator->generate('terminal42_leads_export', ['id' => $config['id']]));
